@@ -9,21 +9,21 @@ function resizeCanvas() {
 resizeCanvas();
 
 let numbers = [];
-const numCount = 100;
+const numCount = 250; // Increased density
 
 class NumberParticle {
   constructor(x, y, value) {
     this.x = x;
     this.y = y;
     this.value = value;
-    this.size = 10;
-    this.dx = (Math.random() - 0.5) * 0.7;
-    this.dy = (Math.random() - 0.5) * 0.7;
+    this.size = 8;
+    this.dx = (Math.random() - 0.5) * 0.6;
+    this.dy = (Math.random() - 0.5) * 0.6;
   }
 
   draw() {
     const isLight = document.body.classList.contains("light");
-    ctx.fillStyle = isLight ? "rgba(50, 50, 50, 0.3)" : "rgba(255, 255, 255, 0.4)";
+    ctx.fillStyle = isLight ? "rgba(50, 50, 50, 0.25)" : "rgba(255, 255, 255, 0.35)";
     ctx.font = `${this.size}px monospace`;
     ctx.fillText(this.value, this.x, this.y);
   }
@@ -37,8 +37,8 @@ class NumberParticle {
 
     const dist = Math.hypot(this.x - mouse.x, this.y - mouse.y);
     if (dist < 100) {
-      this.x += (this.x - mouse.x) / 10;
-      this.y += (this.y - mouse.y) / 10;
+      this.x += (this.x - mouse.x) / 15;
+      this.y += (this.y - mouse.y) / 15;
     }
 
     this.draw();
@@ -86,7 +86,7 @@ themeButton.addEventListener("click", () => {
   const isLight = document.body.classList.contains("light");
   themeButton.textContent = isLight ? "🌞" : "🌙";
   localStorage.setItem("theme", isLight ? "light" : "dark");
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // refresh colors
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
 
 init();
