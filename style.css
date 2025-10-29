@@ -69,3 +69,36 @@ footer {
   padding: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* Theme toggle button */
+#theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ffb400;
+}
+
+/* Light theme */
+body.light {
+  background-color: #f9f9f9;
+  color: #222;
+}
+
+body.light header,
+body.light footer {
+  background: rgba(255, 255, 255, 0.9);
+  color: #222;
+}
+
+body.light nav a {
+  color: #0077cc;
+}
+
+body.light nav a:hover {
+  color: #000;
+}
+
