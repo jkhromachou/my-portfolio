@@ -72,9 +72,6 @@ window.addEventListener("resize", () => {
   init();
 });
 
-init();
-animate()
-
 // Theme toggle
 const themeButton = document.getElementById("theme-toggle");
 const currentTheme = localStorage.getItem("theme");
@@ -90,4 +87,8 @@ themeButton.addEventListener("click", () => {
   themeButton.textContent = isLight ? "🌞" : "🌙";
   localStorage.setItem("theme", isLight ? "light" : "dark");
 });
+
+init();
+animate()
+
 
