@@ -1,115 +1,55 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
-  font-family: "Poppins", sans-serif;
-  color: #eaeaea;
-  background-color: #0d0d0d;
-  position: relative;
-}
-
-/* canvas behind all content */
-canvas#background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* prevents blocking clicks */
-}
-
-/* ensure all content overlays canvas */
-header, main, footer {
-  position: relative;
-  z-index: 2;
-}
-
-header {
-  text-align: center;
-  padding: 3rem 1rem;
-  backdrop-filter: blur(6px);
-  background: rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-nav a {
-  color: #ffb400;
-  margin: 0 12px;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-nav a:hover {
-  color: #fff;
-}
-
-main {
-  max-width: 900px;
-  margin: auto;
-  padding: 2rem;
-  backdrop-filter: blur(4px);
-}
-
-section {
-  margin: 3rem 0;
-}
-
-.project {
-  background: rgba(255,255,255,0.05);
-  padding: 1.2rem;
-  border-radius: 10px;
-  margin: 1rem 0;
-  transition: transform 0.3s, background 0.3s;
-}
-
-.project:hover {
-  transform: translateY(-5px);
-  background: rgba(255,255,255,0.08);
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
-}
-
-/* Theme toggle button */
+/* Fixed theme toggle button */
 #theme-toggle {
-  position: absolute;
+  position: fixed;              /* <— was absolute */
   top: 1rem;
   right: 1rem;
-  background: transparent;
-  border: none;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 1.5rem;
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   color: #ffb400;
-  z-index: 3;
+  z-index: 10;                  /* stays above everything */
+  backdrop-filter: blur(6px);
+  transition: background 0.3s, color 0.3s;
 }
 
-/* Light theme */
-body.light {
-  background-color: #f9f9f9;
-  color: #222;
+#theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-body.light header,
-body.light footer {
-  background: rgba(255, 255, 255, 0.9);
-  color: #222;
+/* Contact section link colors */
+#contact a {
+  color: #ffb400; /* bright gold for dark mode */
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
-body.light nav a {
+#contact a:hover {
+  color: #ffffff;
+}
+
+/* Light mode adjustments */
+body.light #theme-toggle {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   color: #0077cc;
 }
 
-body.light nav a:hover {
+body.light #theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Light mode contact links */
+body.light #contact a {
+  color: #0077cc;
+}
+
+body.light #contact a:hover {
   color: #000;
 }
