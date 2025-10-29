@@ -2,11 +2,14 @@
 const canvas = document.getElementById("background");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
 
 let numbers = [];
-const numCount = 100; // number of floating numbers
+const numCount = 100;
 
 class NumberParticle {
   constructor(x, y, value) {
@@ -14,28 +17,26 @@ class NumberParticle {
     this.y = y;
     this.value = value;
     this.size = 10;
-    this.dx = (Math.random() - 0.5) * 1;
-    this.dy = (Math.random() - 0.5) * 1;
+    this.dx = (Math.random() - 0.5) * 0.7;
+    this.dy = (Math.random() - 0.5) * 0.7;
   }
 
   draw() {
-    ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+    const isLight = document.body.classList.contains("light");
+    ctx.fillStyle = isLight ? "rgba(50, 50, 50, 0.3)" : "rgba(255, 255, 255, 0.4)";
     ctx.font = `${this.size}px monospace`;
     ctx.fillText(this.value, this.x, this.y);
   }
 
   update(mouse) {
-    // Move
     this.x += this.dx;
     this.y += this.dy;
 
-    // Bounce off edges
     if (this.x < 0 || this.x > canvas.width) this.dx *= -1;
     if (this.y < 0 || this.y > canvas.height) this.dy *= -1;
 
-    // Ripple effect
     const dist = Math.hypot(this.x - mouse.x, this.y - mouse.y);
-    if (dist < 80) {
+    if (dist < 100) {
       this.x += (this.x - mouse.x) / 10;
       this.y += (this.y - mouse.y) / 10;
     }
@@ -60,17 +61,16 @@ window.addEventListener("mousemove", (e) => {
   mouse.y = e.y;
 });
 
+window.addEventListener("resize", () => {
+  resizeCanvas();
+  init();
+});
+
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   numbers.forEach((n) => n.update(mouse));
   requestAnimationFrame(animate);
 }
-
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  init();
-});
 
 // Theme toggle
 const themeButton = document.getElementById("theme-toggle");
@@ -86,9 +86,8 @@ themeButton.addEventListener("click", () => {
   const isLight = document.body.classList.contains("light");
   themeButton.textContent = isLight ? "🌞" : "🌙";
   localStorage.setItem("theme", isLight ? "light" : "dark");
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // refresh colors
 });
 
 init();
-animate()
-
-
+animate();
